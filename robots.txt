@@ -32,4 +32,4 @@ Disallow: /
 User-agent: omgili
 Disallow: /
 
-Sitemap: https://korva.vercel.app/sitemap.xml
+Sitemap: https://getkorva.vercel.app/sitemap.xml

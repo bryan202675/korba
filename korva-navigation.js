@@ -281,28 +281,92 @@
     });
 
     // ----------------------------------------------------
-    // 4. MOBILE STEPS ACCORDION (#puesta-en-marcha)
+    // 4. MOBILE STEPS ACCORDION WITH FLUID ENTRANCE & EXIT (#puesta-en-marcha)
     // ----------------------------------------------------
     const stepItems = document.querySelectorAll('li[data-step="true"]');
     stepItems.forEach(li => {
       const btn = li.querySelector('button[aria-expanded]');
-      const cardWrap = li.querySelector('.mt-3');
+      const cardWrap = li.querySelector('.korva-step-card-wrapper') || li.querySelector('.mt-3');
       const arrow = btn ? btn.querySelector('svg') : null;
       if (!btn || !cardWrap) return;
 
       btn.addEventListener('click', (e) => {
+        e.preventDefault();
         const isExpanded = btn.getAttribute('aria-expanded') === 'true';
         if (isExpanded) {
+          // Smooth exit animation (salida)
           btn.setAttribute('aria-expanded', 'false');
           if (arrow) arrow.classList.remove('rotate-180');
-          cardWrap.classList.add('max-sm:hidden');
+          cardWrap.classList.remove('is-open');
         } else {
+          // Smooth exit animation for other open steps
+          stepItems.forEach(otherLi => {
+            const otherBtn = otherLi.querySelector('button[aria-expanded]');
+            const otherWrap = otherLi.querySelector('.korva-step-card-wrapper') || otherLi.querySelector('.mt-3');
+            const otherArrow = otherBtn ? otherBtn.querySelector('svg') : null;
+            if (otherBtn && otherWrap && otherBtn !== btn) {
+              otherBtn.setAttribute('aria-expanded', 'false');
+              if (otherArrow) otherArrow.classList.remove('rotate-180');
+              otherWrap.classList.remove('is-open');
+            }
+          });
+
+          // Smooth entrance animation for this step (entrada)
           btn.setAttribute('aria-expanded', 'true');
           if (arrow) arrow.classList.add('rotate-180');
-          cardWrap.classList.remove('max-sm:hidden');
+          cardWrap.classList.add('is-open');
         }
       });
     });
+
+    // ----------------------------------------------------
+    // 4b. CONTEXTO WIRE FLOW STEP HIGHLIGHT & HIGH CONTRAST (#contexto)
+    // ----------------------------------------------------
+    const contextoSec = document.getElementById('contexto');
+    if (contextoSec) {
+      const stepLis = contextoSec.querySelectorAll('ul > li');
+      const wireFlowPaths = contextoSec.querySelectorAll('svg .mk-wire-flow');
+      let activeIndex = 0;
+
+      function setActiveContextStep(idx) {
+        stepLis.forEach((li, i) => {
+          if (i === idx) {
+            li.classList.add('active-step');
+            li.style.opacity = '1';
+          } else {
+            li.classList.remove('active-step');
+            li.style.opacity = '0.88';
+          }
+        });
+        wireFlowPaths.forEach((path, i) => {
+          if (i === idx) {
+            path.style.stroke = 'var(--primary)';
+            path.style.strokeWidth = '2.5px';
+            path.style.strokeOpacity = '1';
+          } else {
+            path.style.stroke = 'var(--primary)';
+            path.style.strokeWidth = '1.5px';
+            path.style.strokeOpacity = '0.35';
+          }
+        });
+      }
+
+      if (stepLis.length > 0) {
+        setActiveContextStep(0);
+        stepLis.forEach((li, i) => {
+          li.style.cursor = 'pointer';
+          li.addEventListener('click', () => {
+            activeIndex = i;
+            setActiveContextStep(activeIndex);
+          });
+        });
+
+        setInterval(() => {
+          activeIndex = (activeIndex + 1) % stepLis.length;
+          setActiveContextStep(activeIndex);
+        }, 3000);
+      }
+    }
 
     // ----------------------------------------------------
     // 5. ADS / GOOGLE LOCAL STEP ANIMATION (#anuncios)

@@ -1,1 +1,114 @@
 .gradient-ascii-container{position:relative;width:100%;height:100%;overflow:hidden}.gradient-ascii-canvas{position:absolute;inset:0;display:block;width:100%;height:100%}.silk-container{position:relative;width:100%;height:100%;overflow:hidden}.silk-canvas{position:absolute;inset:0;display:block;width:100%;height:100%}.korva-silk-stage{background:#8d8a96!important}.korva-silk-stage>img{display:none!important}.korva-silk-stage>canvas{display:none!important}.korva-silk-layer{position:absolute;z-index:0;inset:0;overflow:hidden;pointer-events:none;background:#8d8a96}.korva-dashboard-layer{position:relative;z-index:1}.korva-gradient-ascii-host{position:absolute;z-index:0;inset:0;background:#080d1c;pointer-events:none}.korva-gradient-ascii-image{display:none!important}.korva-gradient-ascii-title{z-index:1;text-shadow:0 1px 3px rgba(0,0,0,.55)}.korva-dashboard-orbit{position:absolute;z-index:8;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}.korva-orbit-glow,.korva-orbit-runner{animation:korva-dashboard-orbit 8s linear infinite}.korva-orbit-glow{stroke:#5574ff;stroke-width:3;opacity:.28;filter:blur(.5px)}.korva-orbit-runner{stroke:#5876ff;stroke-width:2;filter:drop-shadow(0 0 1.5px rgba(65,94,255,.72))}@keyframes korva-dashboard-orbit{to{stroke-dashoffset:-1000}}@media (prefers-reduced-motion: reduce){.korva-orbit-glow,.korva-orbit-runner{animation:none}}
+
+/* ========================================================
+   Clean Badge & Edge styling (Fix sliced dashed border artifacts)
+   ======================================================== */
+.mk-edge:not([data-thick]) {
+  background: transparent !important;
+  animation: none !important;
+  padding: 0 !important;
+}
+
+.mk-edge:not([data-thick]) > * {
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  background-color: var(--background) !important;
+}
+
+.mk-edge[data-tone="night"]:not([data-thick]) > *,
+[data-surface="dark"] .mk-edge:not([data-thick]) > * {
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ========================================================
+   Step Accordion Smooth Entrance & Exit Animations
+   ======================================================== */
+@media (max-width: 639px) {
+  .korva-step-card-wrapper {
+    display: grid !important;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+    transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.28s ease,
+                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                margin-top 0.35s ease;
+    margin-top: 0 !important;
+    will-change: grid-template-rows, opacity, transform;
+    pointer-events: none;
+  }
+
+  .korva-step-card-wrapper.is-open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    margin-top: 0.75rem !important;
+    pointer-events: auto;
+  }
+
+  .korva-step-card-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 640px) {
+  .korva-step-card-wrapper {
+    display: block !important;
+    opacity: 1 !important;
+    transform: none !important;
+    grid-template-rows: none !important;
+    margin-top: 0 !important;
+    pointer-events: auto !important;
+  }
+  .korva-step-card-inner {
+    overflow: visible !important;
+  }
+}
+
+/* ========================================================
+   High Contrast & Legibility for Dark Wire Flow (#contexto)
+   ======================================================== */
+#contexto ul {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+#contexto ul li {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0.88 !important;
+}
+
+#contexto ul li.active-step {
+  opacity: 1 !important;
+}
+
+#contexto ul li p.text-16 {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+#contexto ul li.active-step p.text-16 {
+  color: #ffffff !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+#contexto ul li p.text-14 {
+  color: #d4d4d8 !important; /* Zinc-300: High contrast, crystal clear text */
+}
+
+#contexto ul li.active-step p.text-14 {
+  color: #ffffff !important;
+}
+
+#contexto ul li span[aria-hidden="true"].size-2 {
+  background-color: #a1a1aa !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25) !important;
+  transition: all 0.3s ease;
+}
+
+#contexto ul li.active-step span[aria-hidden="true"].size-2 {
+  background-color: #10b981 !important;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.35) !important;
+}

@@ -1,0 +1,83 @@
+.korva-silk-stage {
+  background: #8d8a96 !important;
+}
+
+.korva-silk-stage > img {
+  display: none !important;
+}
+
+.korva-silk-stage > canvas {
+  display: none !important;
+}
+
+.korva-silk-layer {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #8d8a96;
+}
+
+.korva-dashboard-layer {
+  position: relative;
+  z-index: 1;
+}
+
+.korva-gradient-ascii-host {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: #080d1c;
+  pointer-events: none;
+}
+
+.korva-gradient-ascii-image {
+  display: none !important;
+}
+
+.korva-gradient-ascii-title {
+  z-index: 1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+.korva-dashboard-orbit {
+  position: absolute;
+  z-index: 8;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.korva-orbit-glow,
+.korva-orbit-runner {
+  animation: korva-dashboard-orbit 8s linear infinite;
+}
+
+.korva-orbit-glow {
+  stroke: #5574ff;
+  stroke-width: 3;
+  opacity: 0.28;
+  filter: blur(0.5px);
+}
+
+.korva-orbit-runner {
+  stroke: #5876ff;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 1.5px rgba(65, 94, 255, 0.72));
+}
+
+@keyframes korva-dashboard-orbit {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .korva-orbit-glow,
+  .korva-orbit-runner {
+    animation: none;
+  }
+}

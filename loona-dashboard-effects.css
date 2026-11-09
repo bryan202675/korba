@@ -1,0 +1,16 @@
+.silk-container{position:relative;width:100%;height:100%;overflow:hidden}.silk-canvas{position:absolute;inset:0;display:block;width:100%;height:100%}.korva-silk-stage{background:#8d8a96!important}.korva-silk-stage>img{display:none!important}.korva-silk-stage>canvas{display:none!important}.korva-silk-layer{position:absolute;z-index:0;inset:0;overflow:hidden;pointer-events:none;background:#8d8a96}.korva-dashboard-layer{position:relative;z-index:1}.korva-dashboard-orbit{position:absolute;z-index:8;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}.korva-orbit-glow,.korva-orbit-runner{animation:korva-dashboard-orbit 8s linear infinite}.korva-orbit-glow{stroke:#5574ff;stroke-width:3;opacity:.28;filter:blur(.5px)}.korva-orbit-runner{stroke:#5876ff;stroke-width:2;filter:drop-shadow(0 0 1.5px rgba(65,94,255,.72))}@keyframes korva-dashboard-orbit{to{stroke-dashoffset:-1000}}@media (prefers-reduced-motion: reduce){.korva-orbit-glow,.korva-orbit-runner{animation:none}}
+
+section[aria-label="Empresas que confían en Korva"]{display:none!important}
+
+
+.korva-dashboard-frame {
+  background: linear-gradient(90deg, #fafafa 0px, #fafafa 281px, #ffffff 281px, #ffffff 100%) !important;
+}
+
+.korva-dashboard-frame > [aria-hidden="true"]:first-child {
+  display: none !important;
+}
+
+.korva-dashboard-frame [data-shader-occluder="true"] {
+  box-shadow: none !important;
+}

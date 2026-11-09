@@ -1,0 +1,244 @@
+/* Korva - Live Interactive Simulations Styling */
+
+.korva-sim-container {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.korva-sim-header {
+  background: #fbfbfb;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.korva-sim-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.korva-sim-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.korva-sim-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: rgba(17, 17, 17, 0.06);
+  color: #111111;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.korva-sim-live-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #111111;
+  animation: korva-pulse 2s infinite ease-in-out;
+}
+
+@keyframes korva-pulse {
+  0% { transform: scale(0.9); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.5; }
+}
+
+/* WhatsApp Phone Simulation */
+.korva-wa-phone {
+  background: #efeae2;
+  border: 2px solid #222222;
+  border-radius: 32px;
+  padding: 14px 12px;
+  max-width: 340px;
+  margin: 0 auto;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  position: relative;
+}
+
+.korva-wa-header {
+  background: #075e54;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 18px 18px 4px 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.korva-wa-chat {
+  padding: 14px 6px;
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.korva-wa-msg-in {
+  background: #ffffff;
+  padding: 9px 12px;
+  border-radius: 10px 10px 10px 2px;
+  max-width: 86%;
+  align-self: flex-start;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #111111;
+  animation: korva-fade-up 0.25s ease-out;
+}
+
+.korva-wa-msg-out {
+  background: #d9fdd3;
+  padding: 9px 12px;
+  border-radius: 10px 10px 2px 10px;
+  max-width: 86%;
+  align-self: flex-end;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #111111;
+  animation: korva-fade-up 0.25s ease-out;
+}
+
+@keyframes korva-fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Kanban simulation cards */
+.korva-kanban-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.korva-kanban-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Interactive Pill Button */
+.korva-sim-btn {
+  background: #111111;
+  color: #ffffff !important;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.korva-sim-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.korva-sim-btn-outline {
+  background: transparent;
+  color: #111111;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.korva-sim-btn-outline:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Range slider styling */
+.korva-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: #e5e5e5;
+  outline: none;
+}
+
+.korva-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #111111;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease;
+}
+
+.korva-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* Calendar Widget Styling */
+.korva-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  gap: 4px;
+}
+
+.korva-cal-cell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.korva-cal-cell:hover:not(.active) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.korva-cal-cell.active {
+  background: #111111 !important;
+  color: #ffffff !important;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  border-color: #111111;
+}
+
+.korva-cal-event-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #111111;
+  border-radius: 12px;
+  padding: 14px;
+  transition: all 0.2s ease;
+}

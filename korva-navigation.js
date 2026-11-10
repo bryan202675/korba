@@ -122,26 +122,84 @@
     // ----------------------------------------------------
     // 2. MOBILE MENU & HAMBURGER (Abrir menú)
     // ----------------------------------------------------
-    const mobileBtn = document.querySelector('header button[aria-label="Abrir menú"]');
-    const mobileDrawer = document.querySelector('header .overflow-hidden.border-b.lg\\:hidden');
+    const mobileBtn = document.querySelector('header button[aria-label="Abrir menú"], header button[aria-label="Cerrar menú"]');
+    const mobileDrawer = document.querySelector('header .overflow-hidden.border-b.lg\\:hidden, header .korva-mobile-drawer');
     if (mobileBtn && mobileDrawer) {
+      mobileDrawer.classList.add('korva-mobile-drawer');
+
+      // Create Backdrop overlay if not already present
+      let backdrop = document.getElementById('korva-mobile-backdrop');
+      if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.id = 'korva-mobile-backdrop';
+        backdrop.className = 'korva-mobile-backdrop lg:hidden';
+        document.body.appendChild(backdrop);
+      }
+
       const hamburgerPath = 'M4.5 7h15M4.5 12h15M4.5 17h15';
       const closePath = 'M6 6l12 12M6 18L18 6';
       const iconPath = mobileBtn.querySelector('path');
+      let closeTimeout = null;
+
+      function openDrawer() {
+        if (closeTimeout) {
+          clearTimeout(closeTimeout);
+          closeTimeout = null;
+        }
+        mobileBtn.setAttribute('aria-expanded', 'true');
+        mobileBtn.setAttribute('aria-label', 'Cerrar menú');
+        if (iconPath) iconPath.setAttribute('d', closePath);
+
+        mobileDrawer.classList.remove('is-closing', 'max-h-0', 'border-transparent', 'opacity-0');
+        mobileDrawer.classList.add('is-open');
+        backdrop.classList.add('is-visible');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDrawer() {
+        if (!mobileDrawer.classList.contains('is-open') && mobileBtn.getAttribute('aria-expanded') !== 'true') return;
+        mobileBtn.setAttribute('aria-expanded', 'false');
+        mobileBtn.setAttribute('aria-label', 'Abrir menú');
+        if (iconPath) iconPath.setAttribute('d', hamburgerPath);
+
+        mobileDrawer.classList.remove('is-open');
+        mobileDrawer.classList.add('is-closing');
+        backdrop.classList.remove('is-visible');
+        document.body.style.overflow = '';
+
+        closeTimeout = setTimeout(() => {
+          mobileDrawer.classList.remove('is-closing');
+          mobileDrawer.classList.add('max-h-0', 'border-transparent', 'opacity-0');
+          closeTimeout = null;
+        }, 280);
+      }
 
       mobileBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         const isOpen = mobileBtn.getAttribute('aria-expanded') === 'true';
         if (isOpen) {
-          mobileBtn.setAttribute('aria-expanded', 'false');
-          mobileDrawer.classList.remove('max-h-[85vh]', 'overflow-y-auto', 'border-border', 'opacity-100');
-          mobileDrawer.classList.add('max-h-0', 'border-transparent', 'opacity-0');
-          if (iconPath) iconPath.setAttribute('d', hamburgerPath);
+          closeDrawer();
         } else {
-          mobileBtn.setAttribute('aria-expanded', 'true');
-          mobileDrawer.classList.remove('max-h-0', 'border-transparent', 'opacity-0');
-          mobileDrawer.classList.add('max-h-[85vh]', 'overflow-y-auto', 'border-border', 'opacity-100');
-          if (iconPath) iconPath.setAttribute('d', closePath);
+          openDrawer();
+        }
+      });
+
+      // Click on backdrop closes drawer
+      backdrop.addEventListener('click', () => {
+        closeDrawer();
+      });
+
+      // Escape key closes drawer
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileBtn.getAttribute('aria-expanded') === 'true') {
+          closeDrawer();
+        }
+      });
+
+      // Close on window resize if crossing to desktop breakpoint
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024 && mobileBtn.getAttribute('aria-expanded') === 'true') {
+          closeDrawer();
         }
       });
 
@@ -162,6 +220,19 @@
             target.classList.remove('grid-rows-[1fr]');
             target.classList.add('grid-rows-[0fr]');
           } else {
+            // Close other mobile sub-menus
+            subButtons.forEach(otherBtn => {
+              if (otherBtn !== btn) {
+                otherBtn.setAttribute('aria-expanded', 'false');
+                const otherArrow = otherBtn.querySelector('svg');
+                if (otherArrow) otherArrow.classList.remove('rotate-180');
+                const otherTarget = document.getElementById(otherBtn.getAttribute('aria-controls'));
+                if (otherTarget) {
+                  otherTarget.classList.remove('grid-rows-[1fr]');
+                  otherTarget.classList.add('grid-rows-[0fr]');
+                }
+              }
+            });
             btn.setAttribute('aria-expanded', 'true');
             if (arrow) arrow.classList.add('rotate-180');
             target.classList.remove('grid-rows-[0fr]');
@@ -173,10 +244,7 @@
       // Close mobile drawer on link click
       mobileDrawer.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
-          mobileBtn.setAttribute('aria-expanded', 'false');
-          mobileDrawer.classList.remove('max-h-[85vh]', 'overflow-y-auto', 'border-border', 'opacity-100');
-          mobileDrawer.classList.add('max-h-0', 'border-transparent', 'opacity-0');
-          if (iconPath) iconPath.setAttribute('d', hamburgerPath);
+          closeDrawer();
         });
       });
     }

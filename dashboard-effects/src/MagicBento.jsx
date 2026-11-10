@@ -1030,7 +1030,7 @@ const MagicBento = ({
           '--mb-border-size': `${Math.round(Math.max(40, spotlightRadius) * 0.75)}px`
         }),
         gridTemplateColumns: `repeat(${span}, minmax(0, 1fr))`,
-        gridAutoRows: span === 1 ? `minmax(${rowHeight}px, auto)` : `${rowHeight}px`,
+        gridAutoRows: `minmax(${rowHeight}px, auto)`,
         gap: `${Math.max(0, gap)}px`,
         ...style
       }}

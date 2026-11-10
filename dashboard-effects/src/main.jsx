@@ -1,5 +1,12 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import {
+  RocketIcon,
+  UserMultiple02Icon,
+  ShieldCheckIcon,
+  Globe02Icon
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import GradientASCII from './GradientASCII.jsx';
 import MagicBento from './MagicBento.jsx';
 import Silk from './Silk.jsx';
@@ -99,6 +106,33 @@ mountGradientCard('menu-productos', 'Ver soluciones');
 mountGradientCard('menu-recursos', 'Ver los cursos');
 mountGradientCard('menu-empresa', 'Ver el changelog');
 
+const KEY_DATA_ICONS = [
+  {
+    icon: RocketIcon,
+    bg: 'rgba(59, 130, 246, 0.12)',
+    color: '#2563eb',
+    border: 'rgba(59, 130, 246, 0.22)'
+  },
+  {
+    icon: UserMultiple02Icon,
+    bg: 'rgba(16, 185, 129, 0.12)',
+    color: '#059669',
+    border: 'rgba(16, 185, 129, 0.22)'
+  },
+  {
+    icon: ShieldCheckIcon,
+    bg: 'rgba(147, 51, 234, 0.12)',
+    color: '#7c3aed',
+    border: 'rgba(147, 51, 234, 0.22)'
+  },
+  {
+    icon: Globe02Icon,
+    bg: 'rgba(14, 165, 233, 0.12)',
+    color: '#0284c7',
+    border: 'rgba(14, 165, 233, 0.22)'
+  }
+];
+
 const mountMagicBento = (label, columns, rowHeight) => {
   const section = document.querySelector(`section[aria-label="${label}"]`);
   const wrapper = section?.querySelector(':scope > div');
@@ -106,15 +140,17 @@ const mountMagicBento = (label, columns, rowHeight) => {
   if (!grid || !grid.children.length) return;
 
   const items = Array.from(grid.children).map((card, index) => {
-    const title = card.querySelector('h3')?.textContent?.trim();
-    const description = card.querySelector('p')?.textContent?.trim() ?? '';
-    const href = card instanceof HTMLAnchorElement ? card.getAttribute('href') : null;
+    const href = card instanceof HTMLAnchorElement ? card.getAttribute('href') : (card.querySelector('a')?.getAttribute('href') || null);
+    const contentHtml = card.innerHTML;
 
     return {
       id: `${label}-${index}`,
-      label: title ? undefined : 'Dato clave',
-      title: title || description,
-      description: title ? description : '',
+      content: (
+        <div
+          className="korva-bento-custom-card flex flex-col justify-between h-full w-full"
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
+      ),
       href: href || undefined
     };
   });
@@ -144,10 +180,11 @@ const mountMagicBento = (label, columns, rowHeight) => {
   );
 };
 
-mountMagicBento('Datos clave', 4, 132);
-mountMagicBento('Cómo empezamos', 3, 150);
-mountMagicBento('Soluciones por rubro', 4, 170);
-mountMagicBento('Planes y precios en resumen', 3, 150);
+mountMagicBento('Datos clave', 4, 150);
+mountMagicBento('Cómo empezamos', 3, 200);
+mountMagicBento('Soluciones por rubro', 4, 190);
+mountMagicBento('Planes y precios en resumen', 3, 210);
+mountMagicBento('Demos en vivo', 3, 200);
 
 const mountStarBorder = sectionLabel => {
   const anchor = document.querySelector(`section[aria-label="${sectionLabel}"] a[href="sales.html"], section[aria-label="${sectionLabel}"] a[href="pricing.html"]`);

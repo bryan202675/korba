@@ -1,16 +1,4 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [
-    { "source": "/agente", "destination": "/citas", "permanent": true },
-    { "source": "/calendario", "destination": "/multiespecialista", "permanent": true },
-    { "source": "/conectores", "destination": "/google-calendar", "permanent": true },
-    { "source": "/cuadernos", "destination": "/cotizaciones", "permanent": true },
-    { "source": "/tareas", "destination": "/crm", "permanent": true },
-    { "source": "/reportes", "destination": "/embudo", "permanent": true },
-    { "source": "/flujos", "destination": "/recordatorios", "permanent": true },
-    { "source": "/mcp", "destination": "/google-business", "permanent": true },
-    { "source": "/modulos", "destination": "/marketing-local", "permanent": true },
-    { "source": "/seguimientos", "destination": "/resenas", "permanent": true }
-  ]
+  "trailingSlash": false
 }
